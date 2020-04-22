@@ -17,14 +17,14 @@ namespace WebApplication6.Controllers
         public ActionResult About()
         {
             ViewBag.Message = new band1(1);
-
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contact(string test1 ,string test2)
         {
             ViewBag.Message = "Your contact page.";
-
+            ViewBag.Test1 = test1;
+            ViewBag.Test2 = test2;
             return View();
         }
     }
