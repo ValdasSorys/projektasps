@@ -13,6 +13,41 @@ namespace WebApplication6.Controllers.Administration
     {
         private static string ConnectionString = ConfigurationManager.ConnectionStrings["mySQLConnection"].ConnectionString;
 
+        //CREATE NEWS ARTICLE
+        public ActionResult openAdministrationNewsCreate()
+        {
+            return View("~/Views/Administration/NewsCreate.cshtml");
+        }
+
+        [HttpPost]
+        public ActionResult openAdministrationNewsCreate(NewsPost NP)
+        {
+            if (createNewsArticle(NP))
+            {
+                return RedirectToAction("openAdministrationNewsList");
+            }
+            else
+            {
+                return View("~/Views/Administration/NewsCreate.cshtml", NP);
+            }
+        }
+
+        private bool createNewsArticle(NewsPost NP)
+        {
+            //TODO VALIDATION
+            if (validateNewsArticle(NP))
+            {
+                NewsPost.create(NP);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //EDIT NEWS ARTICLE
         public ActionResult openAdministrationNewsEdit(int id)
         {
             NewsPost NP = NewsPost.select(id);
@@ -47,11 +82,26 @@ namespace WebApplication6.Controllers.Administration
             }
         }
 
+        //VALIDATE NEWS ARTICLE
         private bool validateNewsArticle(NewsPost NP) 
         {
+            //If article is being created
+            if (NP.Id == 0 && NP.WrittenBy == null)
+            {
+                if (ModelState["Title"].Errors.Count == 0 && ModelState["Text"].Errors.Count == 0 && ModelState["CreateDate"].Errors.Count == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            //If article is being edited
             return ModelState.IsValid;
         }
 
+        //OPEN NEWS LIST
         public ActionResult openAdministrationNewsList()
         {
             var NewsPostList = NewsPost.select();
@@ -59,6 +109,7 @@ namespace WebApplication6.Controllers.Administration
             return View("~/Views/Administration/NewsList.cshtml", NewsPostList);
         }
 
+        //DELETE NEWS ARTICLE
         public ActionResult deleteNewsArticle(int id)
         {
             NewsPost.delete(id);

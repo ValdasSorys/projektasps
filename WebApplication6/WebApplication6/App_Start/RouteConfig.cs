@@ -14,6 +14,12 @@ namespace WebApplication6
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "AdministrationNewsCreate",
+                url: "admin/news/create",
+                defaults: new { controller = "AdministrationNews", action = "openAdministrationNewsCreate" }
+            );
+
+            routes.MapRoute(
                 name: "AdministrationNewsEdit",
                 url: "admin/news/edit/{id}",
                 defaults: new { controller = "AdministrationNews", action = "openAdministrationNewsEdit" }

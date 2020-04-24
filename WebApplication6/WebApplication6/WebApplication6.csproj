@@ -186,6 +186,7 @@
     <Content Include="Views\Administration\Main.cshtml" />
     <Content Include="Views\Administration\NewsList.cshtml" />
     <Content Include="Views\Administration\NewsEdit.cshtml" />
+    <Content Include="Views\Administration\NewsCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

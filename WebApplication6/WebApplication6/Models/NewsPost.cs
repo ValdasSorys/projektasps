@@ -104,5 +104,16 @@ namespace WebApplication6.Models
             Command.ExecuteNonQuery();
             Connection.Close();
         }
+
+        public static void create(NewsPost NP)
+        {
+            var Connection = new MySqlConnection(ConnectionString);
+            Connection.Open();
+            //TODO: find the administrators id
+            string SQLStatement = string.Format("INSERT INTO news_posts ( title, text, createDate, fk_writtenBy) VALUES ('{0}', '{1}', '{2}', '1');", NP.Title, NP.Text, NP.CreateDate);
+            var Command = new MySqlCommand(SQLStatement, Connection);
+            Command.ExecuteNonQuery();
+            Connection.Close();
+        }
     }
 }
