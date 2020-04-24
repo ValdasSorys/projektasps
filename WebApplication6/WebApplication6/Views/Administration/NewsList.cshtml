@@ -41,11 +41,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.WrittenBy)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
+		<td>
+			@Html.RouteLink("Edit", "AdministrationNewsEdit", new { id = item.Id }) |
+			@Html.RouteLink("Delete", "AdministrationNewsDelete", new { id = item.Id }, new { onclick = "return confirm('Do you really want to delete this post?')" })
+		</td>
     </tr>
 }
 

@@ -185,6 +185,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Administration\Main.cshtml" />
     <Content Include="Views\Administration\NewsList.cshtml" />
+    <Content Include="Views\Administration\NewsEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
