@@ -143,6 +143,7 @@
     <Compile Include="Controllers\Administration\AdministrationController.cs" />
     <Compile Include="Controllers\Administration\AdministrationNewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestLogin\TestLoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -187,6 +188,9 @@
     <Content Include="Views\Administration\NewsList.cshtml" />
     <Content Include="Views\Administration\NewsEdit.cshtml" />
     <Content Include="Views\Administration\NewsCreate.cshtml" />
+    <Content Include="Views\Shared\_LayoutGamer.cshtml" />
+    <Content Include="Views\Home\IndexGamer.cshtml" />
+    <Content Include="Views\Test\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

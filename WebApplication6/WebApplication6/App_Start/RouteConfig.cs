@@ -44,6 +44,31 @@ namespace WebApplication6
             );
 
             routes.MapRoute(
+                name: "Login",
+                url: "login",
+                defaults: new { controller = "TestLogin", action = "Index" }
+            );
+
+            routes.MapRoute(
+                name: "DefaultGamer",
+                url: "IndexGamer",
+                defaults: new { controller = "Home", action = "IndexGamer" }
+                );
+
+            routes.MapRoute(
+               name: "DefaultAdmin",
+               url: "Index",
+               defaults: new { controller = "Home", action = "Index" }
+               );
+
+            routes.MapRoute(
+                name: "LoginUser",
+                url: "loginUser",
+                defaults: new { controller = "TestLogin", action = "LoginUser" }
+                );
+
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
