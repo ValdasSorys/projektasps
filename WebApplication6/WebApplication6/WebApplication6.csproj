@@ -144,10 +144,12 @@
     <Compile Include="Controllers\Administration\AdministrationNewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestLogin\TestLoginController.cs" />
+    <Compile Include="Controllers\Tournament\TournamentListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\NewsPost.cs" />
+    <Compile Include="Models\Tournament.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +193,8 @@
     <Content Include="Views\Shared\_LayoutGamer.cshtml" />
     <Content Include="Views\Home\IndexGamer.cshtml" />
     <Content Include="Views\Test\View.cshtml" />
+    <Content Include="Views\Tournament\List.cshtml" />
+    <Content Include="Views\Tournament\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

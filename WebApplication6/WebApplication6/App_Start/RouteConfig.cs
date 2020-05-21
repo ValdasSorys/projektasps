@@ -67,12 +67,23 @@ namespace WebApplication6
                 defaults: new { controller = "TestLogin", action = "LoginUser" }
                 );
 
+            routes.MapRoute(
+                name: "TournamentList",
+                url: "tournaments",
+                defaults: new { controller = "TournamentList", action = "openTournamentList" }
+                );
+
+            routes.MapRoute(
+               name: "TournamentMain",
+               url: "tournamentsmain",
+               defaults: new { controller = "TournamentList", action = "openTournamentPage" }
+               );
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                );
         }
     }
 }

@@ -1,0 +1,14 @@
+﻿
+
+@{
+    ViewBag.Title = "Main";
+    Layout = "~/Views/Shared/_LayoutGamer.cshtml";
+}
+
+<h2>Main</h2>
+
+<li>@Html.RouteLink("Tournaments", "TournamentList")</li>
+@if (HttpContext.Current.Session["id"].ToString() == "5")
+{
+    <h1>ne</h1>
+}

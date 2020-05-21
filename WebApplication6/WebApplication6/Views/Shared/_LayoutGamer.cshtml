@@ -15,6 +15,7 @@
         }
     }*/
 }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,10 +35,12 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("CSGO Match Making 1", "IndexGamer", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+
+                    <li>@Html.RouteLink("Tournaments", "TournamentMain")</li>
                     <li>@Html.ActionLink("Logout", "LogoutUser", "TestLogin", new { area = "" }, new { @class = "navbar-brand" })</li>
                 </ul>
             </div>
