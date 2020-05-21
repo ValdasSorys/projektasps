@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 2020 m. Geg 21 d. 09:50
+-- Generation Time: 2020 m. Geg 21 d. 10:09
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -97,14 +97,14 @@ CREATE TABLE IF NOT EXISTS `forum_post` (
 
 DROP TABLE IF EXISTS `isuser`;
 CREATE TABLE IF NOT EXISTS `isuser` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nickname` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `createDate` date NOT NULL,
   `description` varchar(255) NOT NULL,
   `lastLogin` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Sukurta duomenų kopija lentelei `isuser`
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `isuser_isfriend` (
   `user_id` int(11) NOT NULL,
   `friend_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`,`friend_id`),
-  KEY `is_friend` (`friend_id`)
+  KEY `user_friend` (`friend_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -217,8 +217,8 @@ CREATE TABLE IF NOT EXISTS `reply` (
   `creator_id` int(11) NOT NULL,
   `forum_post_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `writes` (`creator_id`),
-  KEY `is_a_part_of2` (`forum_post_id`)
+  KEY `is_a_part_of2` (`forum_post_id`),
+  KEY `writes` (`creator_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -342,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `tournament_match_team` (
 -- Apribojimai lentelei `administrators`
 --
 ALTER TABLE `administrators`
-  ADD CONSTRAINT `admin_isuer` FOREIGN KEY (`id`) REFERENCES `isuser` (`id`);
+  ADD CONSTRAINT `admin_isuser` FOREIGN KEY (`id`) REFERENCES `isuser` (`id`);
 
 --
 -- Apribojimai lentelei `csgo_match_player`
@@ -361,8 +361,8 @@ ALTER TABLE `forum_post`
 -- Apribojimai lentelei `isuser_isfriend`
 --
 ALTER TABLE `isuser_isfriend`
-  ADD CONSTRAINT `is_friend` FOREIGN KEY (`friend_id`) REFERENCES `isuser` (`id`),
-  ADD CONSTRAINT `is_user` FOREIGN KEY (`user_id`) REFERENCES `isuser` (`id`);
+  ADD CONSTRAINT `user` FOREIGN KEY (`user_id`) REFERENCES `isuser` (`id`),
+  ADD CONSTRAINT `user_friend` FOREIGN KEY (`friend_id`) REFERENCES `isuser` (`id`);
 
 --
 -- Apribojimai lentelei `match_message`
@@ -382,12 +382,6 @@ ALTER TABLE `news_posts`
 ALTER TABLE `personalmessage`
   ADD CONSTRAINT `receives` FOREIGN KEY (`recipientID`) REFERENCES `isuser` (`id`),
   ADD CONSTRAINT `sends` FOREIGN KEY (`senderID`) REFERENCES `isuser` (`id`);
-
---
--- Apribojimai lentelei `player`
---
-ALTER TABLE `player`
-  ADD CONSTRAINT `player_isuser` FOREIGN KEY (`id`) REFERENCES `isuser` (`id`);
 
 --
 -- Apribojimai lentelei `reply`
