@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 2020 m. Geg 21 d. 10:09
+-- Generation Time: 2020 m. Geg 21 d. 11:01
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -39,7 +39,10 @@ CREATE TABLE IF NOT EXISTS `administrators` (
 --
 
 INSERT INTO `administrators` (`id`) VALUES
-(1);
+(1),
+(2),
+(3),
+(4);
 
 -- --------------------------------------------------------
 
@@ -104,14 +107,21 @@ CREATE TABLE IF NOT EXISTS `isuser` (
   `description` varchar(255) NOT NULL,
   `lastLogin` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Sukurta duomenų kopija lentelei `isuser`
 --
 
 INSERT INTO `isuser` (`id`, `nickname`, `password`, `createDate`, `description`, `lastLogin`) VALUES
-(1, 'test123', 'test123', '2020-05-06', 'asdasd', '2020-05-19');
+(1, 'test123', 'test123', '2020-05-06', 'asdasd', '2020-05-19'),
+(2, 'adminas2', 'adminas2', '2020-05-05', 'eks dee', '2020-05-05'),
+(3, 'adminas2', 'adminas3', '2020-05-05', 'eks dee', '2020-05-05'),
+(4, 'adminas2', 'adminas4', '2020-05-05', 'eks dee', '2020-05-05'),
+(5, 'geimeris1', 'geimeris1', '2020-05-06', 'asdasd', '2020-05-28'),
+(6, 'geimeris2', 'geimeris1', '2020-05-06', 'asdasd', '2020-05-28'),
+(7, 'geimeris3', 'geimeris1', '2020-05-06', 'asdasd', '2020-05-28'),
+(8, 'geimeris4', 'geimeris1', '2020-05-06', 'asdasd', '2020-05-28');
 
 -- --------------------------------------------------------
 
@@ -157,15 +167,16 @@ CREATE TABLE IF NOT EXISTS `news_posts` (
   `fk_writtenBy` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fkc_writtenBy` (`fk_writtenBy`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Sukurta duomenų kopija lentelei `news_posts`
 --
 
 INSERT INTO `news_posts` (`id`, `title`, `text`, `createDate`, `fk_writtenBy`) VALUES
-(1, 'Naujiena 1', 'Trumpas sakinys apie naujiena', '2020-04-23', 1),
-(3, 'sdfasd', 'asdasd', '1991-10-06', 1);
+(1, 'Naujiena 1', 'Trumpas sakinys apie naujien....', '2020-04-23', 1),
+(3, 'sdfasd', 'asdasd', '1991-10-06', 1),
+(5, 'dsfsdf', 'sdfsdf', '2000-01-01', 1);
 
 -- --------------------------------------------------------
 
@@ -198,10 +209,20 @@ CREATE TABLE IF NOT EXISTS `player` (
   `winCount` int(11) NOT NULL,
   `rating` double NOT NULL,
   `inQueue` int(11) NOT NULL,
-  `region` int(11) NOT NULL,
+  `region` varchar(255) NOT NULL,
   `inQueuesince` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Sukurta duomenų kopija lentelei `player`
+--
+
+INSERT INTO `player` (`id`, `matchCount`, `winCount`, `rating`, `inQueue`, `region`, `inQueuesince`) VALUES
+(5, 0, 0, 10, 0, 'Europe', '2020-05-06'),
+(6, 1, 1, 50, 0, 'Europe', '2020-05-13'),
+(7, 1, 1, 50, 0, 'Europe', '2020-05-13'),
+(8, 1, 1, 50, 0, 'Europe', '2020-05-13');
 
 -- --------------------------------------------------------
 
@@ -382,6 +403,12 @@ ALTER TABLE `news_posts`
 ALTER TABLE `personalmessage`
   ADD CONSTRAINT `receives` FOREIGN KEY (`recipientID`) REFERENCES `isuser` (`id`),
   ADD CONSTRAINT `sends` FOREIGN KEY (`senderID`) REFERENCES `isuser` (`id`);
+
+--
+-- Apribojimai lentelei `player`
+--
+ALTER TABLE `player`
+  ADD CONSTRAINT `player_isuser` FOREIGN KEY (`id`) REFERENCES `isuser` (`id`);
 
 --
 -- Apribojimai lentelei `reply`

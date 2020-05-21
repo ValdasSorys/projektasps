@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 
 namespace WebApplication6.Models
 {
@@ -61,8 +59,8 @@ namespace WebApplication6.Models
 
             var Connection = new MySqlConnection(ConnectionString);
             Connection.Open();
-            string SQLStatement = "SELECT news_posts.id, title, text, news_posts.createDate, administrators.nickname FROM news_posts " +
-                "INNER JOIN administrators ON administrators.id = news_posts.fk_writtenBy WHERE news_posts.id=" + id;
+            string SQLStatement = "SELECT news_posts.id, title, text, news_posts.createDate, ISUser.nickname FROM news_posts " +
+                "INNER JOIN administrators ON administrators.id = news_posts.fk_writtenBy INNER JOIN ISUSer ON ISUser.id = administrators.id WHERE news_posts.id=" + id;
             var Command = new MySqlCommand(SQLStatement, Connection);
             MySqlDataReader Reader = Command.ExecuteReader();
 
