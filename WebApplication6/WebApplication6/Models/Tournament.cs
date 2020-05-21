@@ -26,7 +26,7 @@ namespace WebApplication6.Models
             string SQLStatement = "SELECT * FROM tournament"; 
             var Command = new MySqlCommand(SQLStatement, Connection);
             MySqlDataReader Reader = Command.ExecuteReader();
-
+        
             if (Reader.HasRows)
             {
                 while (Reader.Read())

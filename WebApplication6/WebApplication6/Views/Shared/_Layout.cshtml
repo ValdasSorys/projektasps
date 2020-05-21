@@ -38,6 +38,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Admin", "openAdministrationMain", "Administration")</li>
+                    <li>@Html.RouteLink("News", "NewsList")</li>
+                    <li>@Html.RouteLink("Teams", "TeamList")</li>
                     <li>@Html.ActionLink("Logout", "LogoutUser", "TestLogin", new { area = "" }, new { @class = "navbar-brand" })</li>
                 </ul>
             </div>

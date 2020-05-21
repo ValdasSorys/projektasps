@@ -80,6 +80,30 @@ namespace WebApplication6
                );
 
             routes.MapRoute(
+               name: "NewsList",
+               url: "news",
+               defaults: new { controller = "News", action = "openNewsList" }
+               );
+
+            routes.MapRoute(
+               name: "TeamList",
+               url: "teams",
+               defaults: new { controller = "TeamList", action = "openTeamList" }
+               );
+
+            routes.MapRoute(
+               name: "TeamDetails",
+               url: "team/{id}",
+               defaults: new { controller = "TeamInfo", action = "openTeamInfo" }
+               );
+
+            routes.MapRoute(
+               name: "TeamCreate",
+               url: "team/create",
+               defaults: new { controller = "CreateTeam", action = "openTeamList" }
+               );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
