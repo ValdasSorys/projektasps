@@ -47,4 +47,14 @@
 
     </dl>
 </div>
-
+<p>
+    @Html.RouteLink("Back to list", "TournamentList")
+    @{ if (Model.isCaptain)
+        {
+            if (!Model.isPlaying)
+            {
+            @Html.RouteLink("Register for tournament", "TournamentParticipate", new { Model.Id }, new { onclick = "return confirm('Do you really want to delete this post?')" });
+                }
+            }
+        }
+</p>
