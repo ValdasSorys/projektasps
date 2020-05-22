@@ -11,6 +11,17 @@ namespace WebApplication6.Controllers.Administration
         // GET: Administration
         public ActionResult openAdministrationMain()
         {
+            // START ROLE CHECK
+            if (System.Web.HttpContext.Current.Session["role"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (System.Web.HttpContext.Current.Session["role"].ToString() != "admin")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // END ROLE CHECK
+
             return View("~/Views/Administration/Main.cshtml");
         }
     }

@@ -16,12 +16,34 @@ namespace WebApplication6.Controllers.Administration
         //CREATE NEWS ARTICLE
         public ActionResult openAdministrationNewsCreate()
         {
+            // START ROLE CHECK
+            if (System.Web.HttpContext.Current.Session["role"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (System.Web.HttpContext.Current.Session["role"].ToString() != "admin")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // END ROLE CHECK
+
             return View("~/Views/Administration/NewsCreate.cshtml");
         }
 
         [HttpPost]
         public ActionResult openAdministrationNewsCreate(NewsPost NP)
         {
+            // START ROLE CHECK
+            if (System.Web.HttpContext.Current.Session["role"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (System.Web.HttpContext.Current.Session["role"].ToString() != "admin")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // END ROLE CHECK
+
             if (createNewsArticle(NP))
             {
                 return RedirectToAction("openAdministrationNewsList");
@@ -50,6 +72,17 @@ namespace WebApplication6.Controllers.Administration
         //EDIT NEWS ARTICLE
         public ActionResult openAdministrationNewsEdit(int id)
         {
+            // START ROLE CHECK
+            if (System.Web.HttpContext.Current.Session["role"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (System.Web.HttpContext.Current.Session["role"].ToString() != "admin")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // END ROLE CHECK
+
             NewsPost NP = NewsPost.select(id);
 
             return View("~/Views/Administration/NewsEdit.cshtml", NP);
@@ -58,6 +91,17 @@ namespace WebApplication6.Controllers.Administration
         [HttpPost]
         public ActionResult openAdministrationNewsEdit(NewsPost NP)
         {
+            // START ROLE CHECK
+            if (System.Web.HttpContext.Current.Session["role"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (System.Web.HttpContext.Current.Session["role"].ToString() != "admin")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // END ROLE CHECK
+
             if (updateNewsArticle(NP))
             {
                 return RedirectToAction("openAdministrationNewsList");
@@ -104,6 +148,17 @@ namespace WebApplication6.Controllers.Administration
         //OPEN NEWS LIST
         public ActionResult openAdministrationNewsList()
         {
+            // START ROLE CHECK
+            if (System.Web.HttpContext.Current.Session["role"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (System.Web.HttpContext.Current.Session["role"].ToString() != "admin")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // END ROLE CHECK
+
             var NewsPostList = NewsPost.select();
 
             return View("~/Views/Administration/NewsList.cshtml", NewsPostList);
@@ -112,6 +167,17 @@ namespace WebApplication6.Controllers.Administration
         //DELETE NEWS ARTICLE
         public ActionResult deleteNewsArticle(int id)
         {
+            // START ROLE CHECK
+            if (System.Web.HttpContext.Current.Session["role"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (System.Web.HttpContext.Current.Session["role"].ToString() != "admin")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // END ROLE CHECK
+
             NewsPost.delete(id);
 
             return RedirectToAction("openAdministrationNewsList");
