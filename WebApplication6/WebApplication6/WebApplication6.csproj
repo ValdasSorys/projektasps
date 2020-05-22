@@ -194,8 +194,6 @@
     <Content Include="Views\Administration\NewsList.cshtml" />
     <Content Include="Views\Administration\NewsEdit.cshtml" />
     <Content Include="Views\Administration\NewsCreate.cshtml" />
-    <Content Include="Views\Shared\_LayoutGamer.cshtml" />
-    <Content Include="Views\Home\IndexGamer.cshtml" />
     <Content Include="Views\Test\View.cshtml" />
     <Content Include="Views\Tournament\List.cshtml" />
     <Content Include="Views\Tournament\Main.cshtml" />
@@ -205,8 +203,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\TeamInfo\" />
-    <Folder Include="Views\TeamList\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

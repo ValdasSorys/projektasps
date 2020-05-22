@@ -30,14 +30,7 @@ namespace WebApplication6.Controllers.Test
             }
             Session["id"] = x;
             Session["role"] = userRole;
-            if (userRole == "admin")
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return RedirectToAction("IndexGamer", "Home");
-            }       
+            return RedirectToAction("Index", "Home");   
         }
 
         public ActionResult LogoutUser()

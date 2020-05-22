@@ -1,14 +1,14 @@
 ﻿@{
-    Layout = null;
-    var x = "";
-    if (ViewBag.Message != null)
-    {
-        x = ViewBag.Message;
-    }
+	ViewBag.Title = "View1";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	var x = "";
+	if (ViewBag.Message != null)
+	{
+		x = ViewBag.Message;
+	}
 }
-
-Login id:
-@using (Html.BeginForm("LoginUser", "TestLogin", new { id = "id" }, FormMethod.Post, new { @class = "header-search pull-right" }))
+<h2>Login</h2>
+@using (Html.BeginForm("LoginUser", "TestLogin", new { id = "id" }, FormMethod.Post, new { @class = "header-search" }))
 {
     @Html.AntiForgeryToken()
 

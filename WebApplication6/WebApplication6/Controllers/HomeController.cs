@@ -13,10 +13,5 @@ namespace WebApplication6.Controllers
         {
             return View();
         }
-
-        public ActionResult IndexGamer()
-        {
-            return View("~/Views/Home/IndexGamer.cshtml");
-        }
     }
 }
