@@ -11,13 +11,17 @@ namespace WebApplication6.Controllers
 {
 	public class MatchPlayController
 	{
-		
-		
-		
-		
-		
-		
-		
+		CSGOMatch csgomatch;
+
+		MatchMessage matchmessage;
+
+		CSGOMatchPlayer csgomatchplayer;
+
+
+
+
+
+
 		public void openMatchView(  )
 		{
 			

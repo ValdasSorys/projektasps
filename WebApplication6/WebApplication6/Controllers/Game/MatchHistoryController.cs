@@ -8,7 +8,7 @@ namespace WebApplication6.Controllers
 {public class MatchHistoryController
 	{
 		//3Realizacija.Components.Views.Game.MatchHistoryView matchhistryview;
-		
+		CSGOMatch[] csgomatch;
 		public void openMatchHistory(  )
 		{
 			
