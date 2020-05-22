@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 2020 m. Geg 21 d. 11:01
+-- Generation Time: 2020 m. Geg 22 d. 18:25
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -54,10 +54,17 @@ DROP TABLE IF EXISTS `csgomatch`;
 CREATE TABLE IF NOT EXISTS `csgomatch` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `winner` int(11) NOT NULL DEFAULT -1,
-  `startTime` date DEFAULT NULL,
-  `endTime` date DEFAULT NULL,
+  `startTime` datetime DEFAULT NULL,
+  `endTime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2682 DEFAULT CHARSET=latin1;
+
+--
+-- Sukurta duomenų kopija lentelei `csgomatch`
+--
+
+INSERT INTO `csgomatch` (`id`, `winner`, `startTime`, `endTime`) VALUES
+(2681, -1, '2020-05-22 21:23:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -74,6 +81,22 @@ CREATE TABLE IF NOT EXISTS `csgo_match_player` (
   PRIMARY KEY (`player_id`,`csgomatch_id`),
   KEY `plays` (`csgomatch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Sukurta duomenų kopija lentelei `csgo_match_player`
+--
+
+INSERT INTO `csgo_match_player` (`teamno`, `admitted_Defeat`, `player_id`, `csgomatch_id`) VALUES
+(0, 0, 8, 2681),
+(0, 0, 100, 2681),
+(0, 0, 101, 2681),
+(0, 0, 102, 2681),
+(0, 0, 103, 2681),
+(1, 0, 104, 2681),
+(1, 0, 105, 2681),
+(1, 0, 106, 2681),
+(1, 0, 107, 2681),
+(1, 0, 108, 2681);
 
 -- --------------------------------------------------------
 
@@ -107,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `isuser` (
   `description` varchar(255) NOT NULL,
   `lastLogin` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=latin1;
 
 --
 -- Sukurta duomenų kopija lentelei `isuser`
@@ -121,7 +144,17 @@ INSERT INTO `isuser` (`id`, `nickname`, `password`, `createDate`, `description`,
 (5, 'geimeris1', 'geimeris1', '2020-05-06', 'asdasd', '2020-05-28'),
 (6, 'geimeris2', 'geimeris1', '2020-05-06', 'asdasd', '2020-05-28'),
 (7, 'geimeris3', 'geimeris1', '2020-05-06', 'asdasd', '2020-05-28'),
-(8, 'geimeris4', 'geimeris1', '2020-05-06', 'asdasd', '2020-05-28');
+(8, 'geimeris4', 'geimeris1', '2020-05-06', 'asdasd', '2020-05-28'),
+(100, 'valdas100', 'valdas100', '2020-05-05', 'adasd', '2020-05-13'),
+(101, 'valdas101', 'valdas100', '2020-05-05', 'adasd', '2020-05-13'),
+(102, 'valdas102', 'valdas100', '2020-05-05', 'adasd', '2020-05-13'),
+(103, 'valdas103', 'valdas100', '2020-05-05', 'adasd', '2020-05-13'),
+(104, 'valdas104', 'valdas100', '2020-05-19', 'dasfsdf', '2020-05-12'),
+(105, 'valdas105', 'valdas100', '2020-05-05', 'adasd', '2020-05-13'),
+(106, 'valdas106', 'valdas100', '2020-05-05', 'adasd', '2020-05-13'),
+(107, 'valdas107', 'valdas100', '2020-05-05', 'adasd', '2020-05-13'),
+(108, 'valdas108', 'valdas100', '2020-05-05', 'adasd', '2020-05-13'),
+(109, 'valdas109', 'valdas100', '2020-05-05', 'adasd', '2020-05-13');
 
 -- --------------------------------------------------------
 
@@ -174,8 +207,8 @@ CREATE TABLE IF NOT EXISTS `news_posts` (
 --
 
 INSERT INTO `news_posts` (`id`, `title`, `text`, `createDate`, `fk_writtenBy`) VALUES
-(1, 'Naujiena 1', 'Trumpas sakinys apie naujien....', '2020-04-23', 1),
-(3, 'sdfasd', 'asdasd', '1991-10-06', 1),
+(1, 'Naujiena 1', '1506', '2020-04-23', 1),
+(3, 'sdfasd', 'FalseTrueTrueTrue', '1991-10-06', 1),
 (5, 'dsfsdf', 'sdfsdf', '2000-01-01', 1);
 
 -- --------------------------------------------------------
@@ -210,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `player` (
   `rating` double NOT NULL,
   `inQueue` int(11) NOT NULL,
   `region` varchar(255) NOT NULL,
-  `inQueuesince` date NOT NULL,
+  `inQueuesince` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -219,10 +252,20 @@ CREATE TABLE IF NOT EXISTS `player` (
 --
 
 INSERT INTO `player` (`id`, `matchCount`, `winCount`, `rating`, `inQueue`, `region`, `inQueuesince`) VALUES
-(5, 0, 0, 10, 0, 'Europe', '2020-05-06'),
-(6, 1, 1, 50, 0, 'Europe', '2020-05-13'),
-(7, 1, 1, 50, 0, 'Europe', '2020-05-13'),
-(8, 1, 1, 50, 0, 'Europe', '2020-05-13');
+(5, 0, 0, 10, 0, 'Europe', '2020-05-06 00:00:00'),
+(6, 1, 1, 50, 0, 'Europe', '2020-05-13 00:00:00'),
+(7, 1, 1, 50, 0, 'Europe', '2020-05-13 00:00:00'),
+(8, 1, 1, 50, 0, 'Europe', '2020-05-13 00:00:00'),
+(100, 0, 0, 10, 0, 'Europe', '2020-05-14 00:00:00'),
+(101, 0, 0, 10, 0, 'Europe', '2020-05-14 00:00:00'),
+(102, 0, 0, 10, 0, 'Europe', '2020-05-15 00:00:00'),
+(103, 0, 0, 10, 0, 'Europe', '2020-05-14 00:00:00'),
+(104, 0, 0, 10, 0, 'Europe', '2020-05-14 00:00:00'),
+(105, 0, 0, 10, 0, 'Europe', '2020-05-14 00:00:00'),
+(106, 0, 0, 10, 0, 'Europe', '2020-05-14 00:00:00'),
+(107, 0, 0, 10, 0, 'Europe', '2020-05-14 00:00:00'),
+(108, 0, 0, 10, 0, 'Europe', '2020-05-14 00:00:00'),
+(109, 0, 0, 10, 1, 'Europe', '2020-05-14 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -271,7 +314,14 @@ CREATE TABLE IF NOT EXISTS `team` (
   `winCount` int(11) NOT NULL,
   `isRemoved` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Sukurta duomenų kopija lentelei `team`
+--
+
+INSERT INTO `team` (`id`, `name`, `matchCount`, `winCount`, `isRemoved`) VALUES
+(1, 'kjbjn', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -318,7 +368,14 @@ CREATE TABLE IF NOT EXISTS `tournament` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `creates` (`tournamentCreator`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Sukurta duomenų kopija lentelei `tournament`
+--
+
+INSERT INTO `tournament` (`id`, `tournamentCreator`, `playerCount`, `startDate`, `maxPlayerCount`, `name`) VALUES
+(1, 2, 156, '2020-05-29', 16, 'lknlnk');
 
 -- --------------------------------------------------------
 
