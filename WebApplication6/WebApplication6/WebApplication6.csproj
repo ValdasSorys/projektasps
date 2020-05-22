@@ -144,6 +144,7 @@
     <Compile Include="Controllers\Administration\AdministrationNewsController.cs" />
     <Compile Include="Controllers\Forum and news\NewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NewContr.cs" />
     <Compile Include="Controllers\TestLogin\TestLoginController.cs" />
     <Compile Include="Controllers\Tournament\TeamInfoController.cs" />
     <Compile Include="Controllers\Tournament\TeamListController.cs" />
