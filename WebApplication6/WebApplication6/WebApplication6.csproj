@@ -144,6 +144,7 @@
     <Compile Include="Controllers\Administration\AdministrationNewsController.cs" />
     <Compile Include="Controllers\Forum and news\NewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NewContr.cs" />
     <Compile Include="Controllers\TestLogin\TestLoginController.cs" />
     <Compile Include="Controllers\Tournament\TeamInfoController.cs" />
     <Compile Include="Controllers\Tournament\TeamListController.cs" />
@@ -202,6 +203,8 @@
     <Content Include="Views\Tournament\TeamList.cshtml" />
     <Content Include="Views\Tournament\TeamInfo.cshtml" />
     <Content Include="Views\Tournament\Info.cshtml" />
+    <Content Include="Views\Tournament\ListActive.cshtml" />
+    <Content Include="Views\Tournament\Lobby.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

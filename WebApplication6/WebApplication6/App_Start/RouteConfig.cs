@@ -80,6 +80,18 @@ namespace WebApplication6
                );
 
             routes.MapRoute(
+               name: "TournamentPlay",
+               url: "tournamentplay",
+               defaults: new { controller = "Tournaments", action = "openTournamentPage" }
+               );
+
+            routes.MapRoute(
+               name: "TournamentActive",
+               url: "tournamentactive",
+               defaults: new { controller = "Tournaments", action = "openActiveTournaments" }
+               );
+
+            routes.MapRoute(
                name: "NewsList",
                url: "news",
                defaults: new { controller = "News", action = "openNewsList" }

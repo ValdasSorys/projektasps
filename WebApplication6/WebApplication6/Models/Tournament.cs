@@ -75,6 +75,39 @@ namespace WebApplication6.Models
 
             return Tournament;
         }
+        public static List<Tournament> selectActive()
+        {
+            var Tournament = new List<Tournament>();
+
+            var Connection = new MySqlConnection(ConnectionString);
+            Connection.Open();
+            string SQLStatement = @"SELECT tournament.id, tournament.playerCount, tournament.startDate, tournament.name, tournament.maxPlayerCount FROM tournament 
+INNER JOIN team_tournament_participation ON tournament.id = team_tournament_participation.tournament_id 
+INNER JOIN team_member ON team_member.team_id = team_tournament_participation.team_id 
+WHERE startDate > NOW() AND startDate < addtime(NOW(), '1 10:0:0')";
+            var Command = new MySqlCommand(SQLStatement, Connection);
+            MySqlDataReader Reader = Command.ExecuteReader();
+
+            if (Reader.HasRows)
+            {
+                while (Reader.Read())
+                {
+                    Tournament.Add(new Tournament()
+                    {
+                        Id = Reader.GetInt32(0),
+                        PlayerCount = Reader.GetInt32(1),
+                        StartDate = Reader.GetDateTime(2),
+                        MaxPlayerCount = Reader.GetInt32(4),
+                        Name = Reader.GetString(3)
+                    });
+                }
+            }
+
+            Reader.Close();
+            Connection.Close();
+
+            return Tournament;
+        }
         public static Tournament select(int id )
         {
             var Tournament = new Tournament();

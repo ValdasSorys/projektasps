@@ -53,7 +53,7 @@
         {
             if (!Model.isPlaying)
             {
-            @Html.RouteLink("Register for tournament", "TournamentParticipate", new { Model.Id }, new { onclick = "return confirm('Do you really want to delete this post?')" });
+            @Html.RouteLink("Register for tournament", "TournamentParticipate", new { Model.Id }, new { onclick = "return confirm('Do you really want to participate in this tournament?')" });
                 }
             }
         }

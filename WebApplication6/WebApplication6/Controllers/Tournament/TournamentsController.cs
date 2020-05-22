@@ -26,5 +26,11 @@ namespace WebApplication6.Controllers
 
             return View("~/Views/Tournament/Info.cshtml", Tournaments);
         }
+        public ActionResult openActiveTournaments()
+        {
+            var Tournaments = Tournament.selectActive();
+
+            return View("~/Views/Tournament/ListActive.cshtml", Tournaments);
+        }
     }
 }

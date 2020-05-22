@@ -6,12 +6,11 @@ using System.Web.Mvc;
 
 namespace WebApplication6.Controllers.Administration
 {
-    public class AdministrationController : Controller
+    public class AdministrationController : NewContr
     {
-        // GET: Administration
         public ActionResult openAdministrationMain()
         {
-            return View("~/Views/Administration/Main.cshtml");
+            return CheckRole(View("~/Views/Administration/Main.cshtml"), "admin");
         }
     }
 }
