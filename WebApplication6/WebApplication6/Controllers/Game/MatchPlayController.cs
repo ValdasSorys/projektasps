@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using WebApplication6.Models;
 namespace WebApplication6.Controllers
 {
-	public class MatchPlayController
+	public class MatchPlayController : Controller
 	{
 		CSGOMatch csgomatch;
 
@@ -18,15 +18,11 @@ namespace WebApplication6.Controllers
 		CSGOMatchPlayer csgomatchplayer;
 
 
-
-
-
-
-		public void openMatchView(  )
+		public ActionResult openMatchView()
 		{
-			
+			return View("~/Views/Game/MatchQueueView.cshtml");
 		}
-		
+
 		public void playerIsPlaying(  )
 		{
 			
@@ -37,9 +33,14 @@ namespace WebApplication6.Controllers
 			
 		}
 		
-		public void getPlayersOngoingMatch(  )
+		[HttpPost]
+		public ActionResult getPlayersOngoingMatch( int id )
 		{
-			
+			List<int> test = new List<int>();
+			test.Add(id);
+			test.Add(id * 2);
+			test.Add(id * 3);
+			return Json(test);
 		}
 		
 		public void checkResultAndCancel(  )

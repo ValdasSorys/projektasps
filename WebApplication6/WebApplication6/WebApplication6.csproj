@@ -211,10 +211,12 @@
     <Content Include="Views\Forum and news\NewsList.cshtml" />
     <Content Include="Views\Tournament\TeamList.cshtml" />
     <Content Include="Views\Tournament\TeamInfo.cshtml" />
+    <Content Include="Views\Game\MatchQueueView.cshtml" />
+    <Content Include="Views\Game\MatchInfoView.cshtml" />
+    <Content Include="Views\Game\MatchHistoryView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Game\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

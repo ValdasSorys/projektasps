@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "MatchQueueView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <head>
+        <style>
+            p.test {
+                text-align: center;
+                font-size: 200%;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+<h2>Ieškomas mačas</h2>
+
+<p class ="test" id='seconds-counter'> </p>
+
+<p1 id='test'> </p1>
+
+<script>
+    var seconds = 0;
+    var el = document.getElementById('seconds-counter');
+    var e2 = document.getElementById('test');
+    function incrementSeconds() {
+    seconds += 1;
+    var quotient = Math.floor(seconds / 60);
+    var remainder = seconds % 60;
+    var minuteString = "";
+    var secondString = "";
+    if (quotient.toString().length == 1)
+    {
+        minuteString = "0";
+    }
+    if (remainder.toString().length == 1) {
+        secondString = "0";
+    }
+    el.innerText = minuteString + quotient + ":" + secondString + remainder;
+    }
+
+    function test() {
+        $.ajax({
+            url: '/getMatch',
+            type: 'POST',
+            data: {
+                id: seconds
+            },
+            success: function (data) {
+                e2.innerText = data;
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+
+    var cancel = setInterval(incrementSeconds, 1000);
+    var testing = setInterval(test, 1000);
+</script>

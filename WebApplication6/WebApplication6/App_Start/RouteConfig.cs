@@ -92,6 +92,17 @@ namespace WebApplication6
                );
 
             routes.MapRoute(
+               name: "openMatchView",
+               url: "queue",
+               defaults: new { controller = "MatchPlay", action = "openMatchView" }
+               );
+            routes.MapRoute(
+               name: "getPlayersOngoingMatch",
+               url: "getMatch",
+               defaults: new { controller = "MatchPlay", action = "getPlayersOngoingMatch" }
+               );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

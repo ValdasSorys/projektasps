@@ -18,7 +18,7 @@ namespace WebApplication6.Models
 
 		public int id;
 
-		public CSGOMatchPlayer csgomatchplayer;
+		public CSGOMatchPlayer[] csgomatchplayer;
 
 		public int matchCount;
 
