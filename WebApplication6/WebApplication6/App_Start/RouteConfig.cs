@@ -62,6 +62,12 @@ namespace WebApplication6
                 );
 
             routes.MapRoute(
+                name: "TournamentInfo",
+                url: "tournament/{id}",
+                defaults: new { controller = "TournamentList", action = "openTournamentInfo" }
+            );
+
+            routes.MapRoute(
                name: "TournamentMain",
                url: "tournamentsmain",
                defaults: new { controller = "TournamentList", action = "openTournamentPage" }

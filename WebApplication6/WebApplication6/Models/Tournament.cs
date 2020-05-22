@@ -48,9 +48,9 @@ namespace WebApplication6.Models
 
             return Tournament;
         }
-        public static List<Tournament> select(int id )
+        public static Tournament select(int id )
         {
-            var Tournament = new List<Tournament>();
+            var Tournament = new Tournament();
 
             var Connection = new MySqlConnection(ConnectionString);
             Connection.Open();
@@ -60,18 +60,14 @@ namespace WebApplication6.Models
 
             if (Reader.HasRows)
             {
-                while (Reader.Read())
-                {
-                    Tournament.Add(new Tournament()
-                    {
-                        Id = Reader.GetInt32(0),
-                        TournamentCreator = Reader.GetInt32(1),
-                        PlayerCount = Reader.GetInt32(2),
-                        StartDate = Reader.GetDateTime(3),
-                        MaxPlayerCount = Reader.GetInt32(4),
-                        Name = Reader.GetString(5)
-                    });
-                }
+
+                Reader.Read();
+                Tournament.Id = Reader.GetInt32(0);
+                Tournament.TournamentCreator = Reader.GetInt32(1);
+                Tournament.PlayerCount = Reader.GetInt32(2);
+                Tournament.StartDate = Reader.GetDateTime(3);
+                Tournament.MaxPlayerCount = Reader.GetInt32(4);
+                Tournament.Name = Reader.GetString(5);
             }
 
             Reader.Close();
