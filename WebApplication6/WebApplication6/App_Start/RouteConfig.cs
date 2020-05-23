@@ -99,8 +99,40 @@ namespace WebApplication6
             routes.MapRoute(
                name: "getPlayersOngoingMatch",
                url: "getMatch",
-               defaults: new { controller = "MatchPlay", action = "getPlayersOngoingMatch" }
+               defaults: new { controller = "MatchPlay", action = "getPlayersOngoingMatch", id = UrlParameter.Optional}
                );
+
+            routes.MapRoute(
+               name: "removeFromQueue",
+               url: "removeFromQueue",
+               defaults: new { controller = "MatchPlay", action = "removeFromQueue", id = UrlParameter.Optional }
+               );
+
+            routes.MapRoute(
+               name: "getMessagesString",
+               url: "getMessagesString",
+               defaults: new { controller = "MatchPlay", action = "getMessagesString", id = UrlParameter.Optional }
+               );
+
+            routes.MapRoute(
+               name: "writeMessage",
+               url: "writeMessage",
+               defaults: new { controller = "MatchPlay", action = "writeMessage", matchid_ = UrlParameter.Optional, playerid_ = UrlParameter.Optional, text = UrlParameter.Optional }
+               );
+
+            routes.MapRoute(
+               name: "admitDefeat",
+               url: "admitDefeat",
+               defaults: new { controller = "MatchPlay", action = "admitDefeat", matchid_ = UrlParameter.Optional, playerid_ = UrlParameter.Optional }
+               );
+
+            routes.MapRoute(
+               name: "checkMatchConcluded",
+               url: "checkMatchConcluded",
+               defaults: new { controller = "MatchPlay", action = "checkMatchConcluded", id = UrlParameter.Optional }
+               );
+
+
 
             routes.MapRoute(
                 name: "Default",

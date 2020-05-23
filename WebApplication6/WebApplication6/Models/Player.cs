@@ -61,22 +61,58 @@ namespace WebApplication6.Models
 
 		}
 
-		public void checkIsSearching()
+		public bool checkIsSearching(int id)
 		{
-
+			bool isSearching = false;
+			var Connection = new MySqlConnection(ConnectionString);
+			Connection.Open();
+			string SQLStatement = "SELECT inQueue from player WHERE id = " + id;
+			var Command = new MySqlCommand(SQLStatement, Connection);
+			MySqlDataReader Reader = Command.ExecuteReader();
+			if (Reader.HasRows)
+			{
+				Reader.Read();
+				{
+					if (Reader.GetInt32(0) == 0)
+                    {
+						isSearching = false;
+                    }
+					else
+                    {
+						isSearching = true;
+                    }
+				}
+			}
+			Reader.Close();
+			Connection.Close();
+			return isSearching;
 		}
 
-		public void addToQueue()
+		public void addToQueue(int playerid)
 		{
-
+			var Connection = new MySqlConnection(ConnectionString);
+			Connection.Open();
+			string SQLStatement = "UPDATE player SET inQueue = 1, inQueueSince = NOW() WHERE id = " + playerid;
+			var Command = new MySqlCommand(SQLStatement, Connection);
+			Command.ExecuteNonQuery();
+			Connection.Close();
 		}
 
 		public void removeFromQueue(int[] playerIds)
 		{
 			var Connection = new MySqlConnection(ConnectionString);
 			Connection.Open();
-			string playerIdString = "(" + playerIds[0] + "," + playerIds[1] + "," + playerIds[2] + "," + playerIds[3] + "," + playerIds[4] + 
-				","+ playerIds[5] + "," + playerIds[6] + "," + playerIds[7] + "," + playerIds[8] + "," + playerIds[9] + ")";
+			string playerIdString = "";
+			if (playerIds.Length == 10)
+			{
+				playerIdString = "(" + playerIds[0] + "," + playerIds[1] + "," + playerIds[2] + "," + playerIds[3] + "," + playerIds[4] +
+					"," + playerIds[5] + "," + playerIds[6] + "," + playerIds[7] + "," + playerIds[8] + "," + playerIds[9] + ")";
+			}
+			else
+            {
+				playerIdString = "(" + playerIds[0] + ")";
+            }
+
 			string SQLStatement = "UPDATE player SET inQueue = 0 WHERE id IN " + playerIdString;
 			var Command = new MySqlCommand(SQLStatement, Connection);
 			Command.ExecuteNonQuery();

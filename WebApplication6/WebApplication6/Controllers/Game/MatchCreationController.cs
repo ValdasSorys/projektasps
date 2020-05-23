@@ -115,7 +115,7 @@ namespace WebApplication6.Controllers
 			int addedPlayersCount = 1;
 
 			string region = player.region;
-			if (!(searchingCount < 30))
+			if (searchingCount < 30)
 			{
 				for (int i = 1;  i < 10; i++)
                 {

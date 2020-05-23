@@ -2,26 +2,33 @@
 @{
     ViewBag.Title = "MatchQueueView";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var x = ViewBag.Message;
+    var playeridx = Int32.Parse(HttpContext.Current.Session["id"].ToString());
 }
-    <head>
-        <style>
-            p.test {
-                text-align: center;
-                font-size: 200%;
-                font-weight: bold;
-            }
-        </style>
-    </head>
+<head>
+    <style>
+        p.test {
+            text-align: center;
+            font-size: 200%;
+            font-weight: bold;
+        }
+    </style>
+</head>
 <h2>Ieškomas mačas</h2>
-
-<p class ="test" id='seconds-counter'> </p>
-
+<p1>@(x)</p1>
+<p class="test" id='seconds-counter'> </p>
+<button onclick="cancelSearch()">Atšaukti paiešką</button>
 <p1 id='test'> </p1>
-
+<p1 id='cancelTest'> </p1>
+<input type="hidden" id='playerid' name='playerid' value="@(playeridx)">
 <script>
     var seconds = 0;
     var el = document.getElementById('seconds-counter');
     var e2 = document.getElementById('test');
+    var e3 = document.getElementById('cancelTest');
+    var playerid = document.getElementById('playerid').value;
+    var cancelled = 0;
+
     function incrementSeconds() {
     seconds += 1;
     var quotient = Math.floor(seconds / 60);
@@ -35,25 +42,48 @@
     if (remainder.toString().length == 1) {
         secondString = "0";
     }
-    el.innerText = minuteString + quotient + ":" + secondString + remainder;
+     el.innerText = minuteString + quotient + ":" + secondString + remainder;
     }
 
-    function test() {
+    function cancelSearch() {
+        cancelled = 1;
+    }
+
+    function getPlayersOngoingMatch() {
         $.ajax({
             url: '/getMatch',
             type: 'POST',
             data: {
-                id: seconds
+                id: playerid
             },
             success: function (data) {
-                e2.innerText = data;
+                onSystemResponse(data);
             },
             error: function () {
                 alert("error");
             }
         });
     }
+    function onSystemResponse(foundMatch) {
+        if (foundMatch == "1") {
+            location.reload();
+        }
+        if (cancelled == 1) {
+            $.ajax({
+                url: '/removeFromQueue',
+                type: 'POST',
+                data: {
+                    id: playerid
+                },
+                success: function (data) {
+                    document.location.href = "/";
+                },
+                error: function () {
+                }
+            });
+        }
+    }
 
-    var cancel = setInterval(incrementSeconds, 1000);
-    var testing = setInterval(test, 1000);
+    var interval = setInterval(incrementSeconds, 1000);
+    var ongoingCheck = setInterval(getPlayersOngoingMatch, 1000);
 </script>

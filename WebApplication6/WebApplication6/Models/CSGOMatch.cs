@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
+using System.Text.RegularExpressions;
 /**
 * @(#) CSGOMatch.cs
 */
@@ -17,8 +18,6 @@ namespace WebApplication6.Models
 		public CSGOMatchPlayer[] player;
 		
 		public int winner = -1;
-		
-		public int state;
 
 		public DateTime startTime;
 
@@ -31,25 +30,82 @@ namespace WebApplication6.Models
 			
 		}
 		
-		public void getOngoingMatches(  )
+		public void getMatchInfo()
 		{
-			
+			var Connection = new MySqlConnection(ConnectionString);
+			Connection.Open();
+
+			string SQLStatement = "SELECT * from csgo_match_player Where csgomatch_id = " + id;
+			var Command = new MySqlCommand(SQLStatement, Connection);
+			MySqlDataReader Reader = Command.ExecuteReader();
+			List<CSGOMatchPlayer> tempList = new List<CSGOMatchPlayer>();
+			if (Reader.HasRows)
+			{
+				while (Reader.Read())
+                {
+					Player tempPlayer = new Player(Reader.GetInt32(2), 0, 0, 0, false, "", new DateTime(0));
+					CSGOMatchPlayer temp = new CSGOMatchPlayer(Reader.GetInt32(0), tempPlayer, this, false);
+					tempList.Add(temp);
+                }				
+			}
+			Reader.Close();
+
+			Connection.Close();
+			player = tempList.ToArray();
 		}
 		
-		public void getMatchInfo(  )
+		public void getOngoingMatches(int playerid )
 		{
-			
+			id = 0;
+			var Connection = new MySqlConnection(ConnectionString);
+			Connection.Open();
+
+			string SQLStatement = "SELECT * from csgomatch Where endTime is null " +
+				"AND id in (SELECT csgomatch_id FROM csgo_match_player WHERE player_id = " + playerid + ")";
+			var Command = new MySqlCommand(SQLStatement, Connection);
+			MySqlDataReader Reader = Command.ExecuteReader();
+
+			if (Reader.HasRows)
+			{
+				Reader.Read();
+				id = Reader.GetInt32(0);
+				winner = Reader.GetInt32(1);
+				if (Reader.IsDBNull(2))
+					startTime = new DateTime(0);
+				else
+					startTime = Reader.GetDateTime(2);
+				if (Reader.IsDBNull(3))
+					endTime = new DateTime(0);
+				else
+					endTime = Reader.GetDateTime(3);
+			}
+			Reader.Close();
+			Connection.Close();
 		}
 		
-		public void concludeMatch(  )
+		public void concludeMatch( int matchid, int winner )
 		{
-			
+			var Connection = new MySqlConnection(ConnectionString);
+			Connection.Open();
+
+			string SQLStatement = "UPDATE csgomatch SET endTime = NOW(), winner = " + winner + " WHERE id = " + matchid;
+			var Command = new MySqlCommand(SQLStatement, Connection);
+			Command.ExecuteNonQuery();
+
+			SQLStatement = "UPDATE player SET winCount = winCount + 1, " +
+				"matchCount = matchCount + 1, rating = rating + 10 WHERE id IN " +
+				"(SELECT player_id FROM csgo_match_player WHERE csgomatch_id = " + matchid + " AND teamNo = " + winner +")";
+			Command = new MySqlCommand(SQLStatement, Connection);
+			Command.ExecuteNonQuery();
+
+			SQLStatement = "UPDATE player SET " +
+				"matchCount = matchCount + 1, rating = rating - 10 WHERE id IN " +
+				"(SELECT player_id FROM csgo_match_player WHERE csgomatch_id = " + matchid + " AND teamNo <> " + winner + ")";
+			Command = new MySqlCommand(SQLStatement, Connection);
+			Command.ExecuteNonQuery();
+			Connection.Close();
 		}
 		
-		public void getPlayersOngoingMatch(  )
-		{
-			
-		}
 		
 		public void addMatch(  )
 		{
@@ -72,10 +128,6 @@ namespace WebApplication6.Models
 			Connection.Close();
 		}
 		
-		public void addPlayerToMatch()
-		{
-			
-		}
 		
 		public void startMatch( int[] playerIds )
 		{
@@ -95,25 +147,6 @@ namespace WebApplication6.Models
 			Connection.Close();
 		}
 		
-		public void test ()
-        {
-			var Connection = new MySqlConnection(ConnectionString);
-			Connection.Open();
-			string SQLStatement = "SELECT * FROM  csgomatch Where id in " +
-			"(SELECT csgomatch_id FROM csgo_match_player WHERE player_id = '" + 1 + "' ) ORDER BY endTime DESC LIMIT 1";
-			//string SQLStatement = "SELECT csgomatch_id FROM csgo_match_player WHERE player_id = " + player_id;
-			var Command = new MySqlCommand(SQLStatement, Connection);
-			MySqlDataReader Reader = Command.ExecuteReader();
-
-
-			if (Reader.HasRows)
-			{
-				Reader.Read();
-			}
-
-			Reader.Close();
-			Connection.Close();
-		}
 		public CSGOMatch getLastPlayedMatch( int player_id )
 		{
 			CSGOMatch toReturn = new CSGOMatch();
@@ -136,9 +169,9 @@ namespace WebApplication6.Models
 				else
 					toReturn.startTime = Reader.GetDateTime(2);
 				if (Reader.IsDBNull(3))
-					toReturn.startTime = new DateTime(0);
+					toReturn.endTime = new DateTime(0);
 				else
-					toReturn.startTime = Reader.GetDateTime(3);
+					toReturn.endTime = Reader.GetDateTime(3);
 			}
 			
 			Reader.Close();
@@ -172,6 +205,29 @@ namespace WebApplication6.Models
 			var Command = new MySqlCommand(SQLStatement, Connection);
 			Command.ExecuteNonQuery();
 			Connection.Close();
+		}
+
+		public bool checkMatchConcluded(int id)
+        {
+			bool matchConcluded = false;
+			var Connection = new MySqlConnection(ConnectionString);
+			Connection.Open();
+
+			string SQLStatement = "SELECT Count(*) FROM csgomatch WHERE id = " + id + " AND endTime IS null";
+			var Command = new MySqlCommand(SQLStatement, Connection);
+			MySqlDataReader Reader = Command.ExecuteReader();
+
+			if (Reader.HasRows)
+			{
+				Reader.Read();
+				if (Reader.GetInt32(0) == 0)
+                {
+					matchConcluded = true;
+                }				
+			}
+			Reader.Close();
+			Connection.Close();
+			return matchConcluded;
 		}
 		
 	}
