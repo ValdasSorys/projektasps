@@ -48,6 +48,9 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="FluentScheduler, Version=5.3.0.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentScheduler.5.3.0\lib\net40\FluentScheduler.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf, Version=3.6.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -143,6 +146,9 @@
     <Compile Include="Controllers\Administration\AdministrationController.cs" />
     <Compile Include="Controllers\Administration\AdministrationNewsController.cs" />
     <Compile Include="Controllers\Forum and news\NewsController.cs" />
+    <Compile Include="Controllers\Game\MatchCreationController.cs" />
+    <Compile Include="Controllers\Game\MatchHistoryController.cs" />
+    <Compile Include="Controllers\Game\MatchPlayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewContr.cs" />
     <Compile Include="Controllers\TestLogin\TestLoginController.cs" />
@@ -153,7 +159,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CSGOMatch.cs" />
+    <Compile Include="Models\CSGOMatchPlayer.cs" />
+    <Compile Include="Models\ISUser.cs" />
+    <Compile Include="Models\MatchMessage.cs" />
     <Compile Include="Models\NewsPost.cs" />
+    <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\Tournament.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -205,6 +216,9 @@
     <Content Include="Views\Tournament\Info.cshtml" />
     <Content Include="Views\Tournament\ListActive.cshtml" />
     <Content Include="Views\Tournament\Lobby.cshtml" />
+    <Content Include="Views\Game\MatchHistoryView.cshtml" />
+    <Content Include="Views\Game\MatchInfoView.cshtml" />
+    <Content Include="Views\Game\MatchQueueView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
