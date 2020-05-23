@@ -46,12 +46,16 @@
 					{
 						<li>@Html.RouteLink("Tournaments", "TournamentMain")</li>
 						<li>@Html.RouteLink("Teams", "TeamList")</li>
-					}
-					if (HttpContext.Current.Session["role"].ToString() == "admin")
-					{
-						<li>@Html.ActionLink("Admin", "openAdministrationMain", "Administration")</li>
-					}
-					}
+                        <li>@Html.RouteLink("Game", "openMatchView")</li>
+
+                    }
+                    if (HttpContext.Current.Session["role"].ToString() == "admin")
+                        {
+
+                        <li>@Html.ActionLink("Admin", "openAdministrationMain", "Administration")</li>
+
+                    }
+                    }
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
                     @if (HttpContext.Current.Session["id"] == null) { 
