@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "MatchInfoView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var matchInfo = Int32.Parse(ViewBag.MatchInfo);
+    var playerInfo1 = ViewBag.PlayerInfo1;
+    var playerInfo2 = ViewBag.PlayerInfo2;
+    var playeridx = Int32.Parse(HttpContext.Current.Session["id"].ToString());
+}
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<h2>MatchInfoView</h2>
+<p>Match id: @(matchInfo)</p>
+<button id="sendMessageButton" onclick="admitDefeat()">Admit defeat</button>
+<p id='defeat'> </p>
+<table>
+    <tr>
+        <td>Komanda 1</td>
+        <td>Komanda 2</td>
+    </tr>
+
+    @for (var i = 0; i < 5; i++)
+    {
+        <tr>
+            <td>@(playerInfo1[i])</td>
+            <td>@(playerInfo2[i])</td>
+        </tr>
+    }
+</table>
+<br />
+<input type="text" id="messageText" name="messageText" value="" autocomplete="off">
+<button id="sendMessageButton" onclick="writeMessage()">Send</button>
+<p></p>
+<p id="chatbox1"> </p>
+<br />
+
+<input type="hidden" id='playerid' name='playerid' value="@(playeridx)">
+<input type="hidden" id='matchid' name='matchid' value="@(matchInfo)">
+
+<script>
+    var el = document.getElementById('sendMessageButton');
+    var playerid = document.getElementById('playerid').value;
+    var textBox = document.getElementById('chatbox1');
+    var messageToSend = document.getElementById('messageText');
+    var matchid = document.getElementById('matchid').value;
+    var defeatMessage = document.getElementById('defeat');
+    function writeMessage() {
+        var textToSend = messageToSend.value;
+        $.ajax({
+            url: '/writeMessage',
+            type: 'POST',
+            data: {
+                playerid_: playerid,
+                matchid_: matchid,
+                text: textToSend
+            },
+            success: function (data) {
+                messageToSend.value = "";
+                refreshMessage();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+
+    function refreshMessage() {
+        $.ajax({
+            url: '/getMessagesString',
+            type: 'POST',
+            data: {
+                id: matchid
+            },
+            success: function (data) {
+                textBox.innerText = data;
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+
+    function admitDefeat() {
+        $.ajax({
+            url: '/admitDefeat',
+            type: 'POST',
+            data: {
+                playerid_: playerid,
+                matchid_: matchid
+            },
+            success: function (data) {
+                defeatMessage.innerText = data;
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+
+    function checkMatchConcluded() {
+        $.ajax({
+            url: '/checkMatchConcluded',
+            type: 'POST',
+            data: {
+                id : matchid
+            },
+            success: function (data) {
+                if (data == 1) {
+                    document.location.href = "/";
+                }
+            },
+            error: function () {
+                alert("errorcheckMatchConcluded()");
+            }
+        });
+    }
+
+    var refresh = setInterval(refreshMessage, 1000);
+    var checkConcluded = setInterval(checkMatchConcluded, 1000);
+ 
+</script>
