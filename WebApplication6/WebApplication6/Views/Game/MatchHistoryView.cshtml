@@ -2,7 +2,40 @@
 @{
     ViewBag.Title = "MatchHistoryView";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    string[] data = new string [0];
+    if (ViewBag.historyTable != null)
+    {
+        data = ViewBag.historyTable;
+    }
 
+
+}
+    <head>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
+    </head>
 <h2>MatchHistoryView</h2>
+<table>
+    <tr><td>Id</td><td>Result</td><td>Start time</td><td>End time</td></tr>
+    @for (int i = 0; i < data.Length; i++)
+    {
+       @Html.Raw(data[i])
+    }
+</table>
+
 

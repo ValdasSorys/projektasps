@@ -11,9 +11,14 @@ namespace WebApplication6.Controllers
     {
         public ActionResult openTeamInfo(int id)
         {
-            var Teams = Team.select(id);
+            var team = Team.select(id);
+            var teamMembers = Team.getTeamInfo(id);
+            ViewBag.teamMembers = teamMembers;
 
-            return View("~/Views/Tournament/TeamInfo.cshtml", Teams);
+            return View("~/Views/Tournament/TeamInfo.cshtml", team);
         }
+        
+
+
     }
 }

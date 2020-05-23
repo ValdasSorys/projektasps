@@ -47,6 +47,7 @@
 						<li>@Html.RouteLink("Tournaments", "TournamentMain")</li>
 						<li>@Html.RouteLink("Teams", "TeamList")</li>
                         <li>@Html.RouteLink("Game", "openMatchView")</li>
+                        <li>@Html.RouteLink("Match history", "openMatchHistory")</li>
 
                     }
                     if (HttpContext.Current.Session["role"].ToString() == "admin")
