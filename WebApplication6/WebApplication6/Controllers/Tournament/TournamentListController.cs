@@ -12,7 +12,6 @@ namespace WebApplication6.Controllers
         // GET: TournamentList
         public ActionResult openTournamentPage()
         {
-
             return View("~/Views/Tournament/Main.cshtml");
         }
         public ActionResult openTournamentList()
