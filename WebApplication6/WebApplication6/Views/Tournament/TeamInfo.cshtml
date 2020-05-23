@@ -7,6 +7,17 @@
 
 <h2>TeamInfo</h2>
 
+<dd>
+    @if (ViewBag.isError == true)
+    {<h2>ERROR: User is in a team or has already sent one request.</h2>}
+</dd>
+
+<dd>
+    @if (ViewBag.requestSent == true)
+    {<h2>Team join request sent.</h2>}
+</dd>
+
+
 <div>
     <h4>Team</h4>
     <hr />
@@ -34,8 +45,20 @@
         <dd>
             @Html.DisplayFor(model => model.WinCount)
         </dd>
+
+        <dt>Team members</dt>
+
+        <dd>
+            @foreach (var x in ViewBag.teamMembers)
+            {<li>@x</li>}
+        </dd>
+
     </dl>
 </div>
+<p>
+    @Html.RouteLink("Send join request", "TeamJoin", new { id = Model.Id })
+</p>
+
 <p>
     @Html.RouteLink("Back to list", "TeamList")
 </p>

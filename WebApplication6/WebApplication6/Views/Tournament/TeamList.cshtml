@@ -8,8 +8,14 @@
 <h2>TeamList</h2>
 
 <p>
-    @Html.ActionLink("Create New", "CreateTeam")
+    @Html.RouteLink("Create New", "TeamCreate")
 </p>
+
+<dd>
+    @if (ViewBag.isError == true)
+    {<h2>ERROR: User is in a team or has already sent one request.</h2>}
+</dd>
+
 <table class="table">
     <tr>
         <th>
@@ -27,24 +33,25 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MatchCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WinCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsRemoved)
-        </td>
-        <td>
-            @Html.RouteLink("Details", "TeamDetails", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MatchCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WinCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsRemoved)
+            </td>
+            <td>
+                @Html.RouteLink("Details", "TeamDetails", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

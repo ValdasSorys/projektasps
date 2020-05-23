@@ -25,9 +25,34 @@ namespace WebApplication6.Models
 		
 		public MatchMessage matchmessage;
 		
-		public void getPlayersMatches(  )
+		public List<CSGOMatch> getPlayersMatches( int id )
 		{
-			
+			List<CSGOMatch> toReturn = new List<CSGOMatch>();
+			var Connection = new MySqlConnection(ConnectionString);
+			Connection.Open();
+
+			string SQLStatement = "SELECT * FROM csgo_match_player LEFT JOIN csgomatch ON csgomatch.id = csgo_match_player.csgomatch_id WHERE player_id = " + id + " AND endTime is not null";
+			var Command = new MySqlCommand(SQLStatement, Connection);
+			MySqlDataReader Reader = Command.ExecuteReader();
+			List<CSGOMatchPlayer> tempList = new List<CSGOMatchPlayer>();
+			if (Reader.HasRows)
+			{
+				while (Reader.Read())
+				{
+					CSGOMatch temp = new CSGOMatch();
+					temp.id = Reader.GetInt32(4);
+					temp.winner = Reader.GetInt32(5);
+					temp.startTime = Reader.GetDateTime(6);
+					temp.endTime = Reader.GetDateTime(7);
+					if (temp.winner == Reader.GetInt32(0))
+						temp.winner = 1;
+					else
+						temp.winner = 0;
+					toReturn.Add(temp);
+				}
+			}
+			Connection.Close();
+			return toReturn;
 		}
 		
 		public void getMatchInfo()

@@ -11,7 +11,7 @@ namespace WebApplication6.Controllers
     {
         public ActionResult openTeamList()
         {
-            var Teams = Team.select();
+            var Teams = Team.getTeams();
 
             return View("~/Views/Tournament/TeamList.cshtml", Teams);
         }
