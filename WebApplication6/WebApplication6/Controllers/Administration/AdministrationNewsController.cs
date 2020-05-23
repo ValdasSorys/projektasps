@@ -9,14 +9,14 @@ using WebApplication6.Models;
 
 namespace WebApplication6.Controllers.Administration
 {
-    public class AdministrationNewsController : Controller
+    public class AdministrationNewsController : NewContr
     {
         private static string ConnectionString = ConfigurationManager.ConnectionStrings["mySQLConnection"].ConnectionString;
 
         //CREATE NEWS ARTICLE
         public ActionResult openAdministrationNewsCreate()
         {
-            return View("~/Views/Administration/NewsCreate.cshtml");
+            return CheckRole(View("~/Views/Administration/NewsCreate.cshtml"), "admin");
         }
 
         [HttpPost]
@@ -24,17 +24,16 @@ namespace WebApplication6.Controllers.Administration
         {
             if (createNewsArticle(NP))
             {
-                return RedirectToAction("openAdministrationNewsList");
+                return CheckRole(RedirectToAction("openAdministrationNewsList"), "admin");
             }
             else
             {
-                return View("~/Views/Administration/NewsCreate.cshtml", NP);
+                return CheckRole(View("~/Views/Administration/NewsCreate.cshtml", NP), "admin");
             }
         }
 
         private bool createNewsArticle(NewsPost NP)
         {
-            //TODO VALIDATION
             if (validateNewsArticle(NP))
             {
                 NewsPost.create(NP);
@@ -52,7 +51,7 @@ namespace WebApplication6.Controllers.Administration
         {
             NewsPost NP = NewsPost.select(id);
 
-            return View("~/Views/Administration/NewsEdit.cshtml", NP);
+            return CheckRole(View("~/Views/Administration/NewsEdit.cshtml", NP), "admin");
         }
 
         [HttpPost]
@@ -60,11 +59,11 @@ namespace WebApplication6.Controllers.Administration
         {
             if (updateNewsArticle(NP))
             {
-                return RedirectToAction("openAdministrationNewsList");
+                return CheckRole(RedirectToAction("openAdministrationNewsList"), "admin");
             }
             else
             {
-                return View("~/Views/Administration/NewsEdit.cshtml", NP);
+                return CheckRole(View("~/Views/Administration/NewsEdit.cshtml", NP), "admin");
             }
         }
 
@@ -106,7 +105,7 @@ namespace WebApplication6.Controllers.Administration
         {
             var NewsPostList = NewsPost.select();
 
-            return View("~/Views/Administration/NewsList.cshtml", NewsPostList);
+            return CheckRole(View("~/Views/Administration/NewsList.cshtml", NewsPostList), "admin");
         }
 
         //DELETE NEWS ARTICLE
@@ -114,7 +113,7 @@ namespace WebApplication6.Controllers.Administration
         {
             NewsPost.delete(id);
 
-            return RedirectToAction("openAdministrationNewsList");
+            return CheckRole(RedirectToAction("openAdministrationNewsList"), "admin");
         }
     }
 }

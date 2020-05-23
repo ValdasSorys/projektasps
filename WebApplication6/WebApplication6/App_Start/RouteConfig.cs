@@ -62,9 +62,33 @@ namespace WebApplication6
                 );
 
             routes.MapRoute(
+                name: "TournamentParticipate",
+                url: "tournament/participate/{id}",
+                defaults: new { controller = "Tournaments", action = "RegisterTournament" }
+                );
+
+            routes.MapRoute(
+                name: "TournamentInfo",
+                url: "tournament/{id}",
+                defaults: new { controller = "TournamentList", action = "openTournamentInfo" }
+            );
+
+            routes.MapRoute(
                name: "TournamentMain",
                url: "tournamentsmain",
                defaults: new { controller = "TournamentList", action = "openTournamentPage" }
+               );
+
+            routes.MapRoute(
+               name: "TournamentPlay",
+               url: "tournamentplay",
+               defaults: new { controller = "Tournaments", action = "openTournamentPage" }
+               );
+
+            routes.MapRoute(
+               name: "TournamentActive",
+               url: "tournamentactive",
+               defaults: new { controller = "Tournaments", action = "openActiveTournaments" }
                );
 
             routes.MapRoute(
@@ -96,6 +120,49 @@ namespace WebApplication6
                url: "team/{id}",
                defaults: new { controller = "TeamInfo", action = "openTeamInfo" }
                );
+
+
+            routes.MapRoute(
+               name: "openMatchView",
+               url: "queue",
+               defaults: new { controller = "MatchPlay", action = "openMatchView" }
+               );
+            routes.MapRoute(
+               name: "getPlayersOngoingMatch",
+               url: "getMatch",
+               defaults: new { controller = "MatchPlay", action = "getPlayersOngoingMatch", id = UrlParameter.Optional}
+               );
+
+            routes.MapRoute(
+               name: "removeFromQueue",
+               url: "removeFromQueue",
+               defaults: new { controller = "MatchPlay", action = "removeFromQueue", id = UrlParameter.Optional }
+               );
+
+            routes.MapRoute(
+               name: "getMessagesString",
+               url: "getMessagesString",
+               defaults: new { controller = "MatchPlay", action = "getMessagesString", id = UrlParameter.Optional }
+               );
+
+            routes.MapRoute(
+               name: "writeMessage",
+               url: "writeMessage",
+               defaults: new { controller = "MatchPlay", action = "writeMessage", matchid_ = UrlParameter.Optional, playerid_ = UrlParameter.Optional, text = UrlParameter.Optional }
+               );
+
+            routes.MapRoute(
+               name: "admitDefeat",
+               url: "admitDefeat",
+               defaults: new { controller = "MatchPlay", action = "admitDefeat", matchid_ = UrlParameter.Optional, playerid_ = UrlParameter.Optional }
+               );
+
+            routes.MapRoute(
+               name: "checkMatchConcluded",
+               url: "checkMatchConcluded",
+               defaults: new { controller = "MatchPlay", action = "checkMatchConcluded", id = UrlParameter.Optional }
+               );
+
 
 
             routes.MapRoute(

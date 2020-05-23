@@ -22,7 +22,9 @@ namespace WebApplication6.Controllers
 
             return View("~/Views/Tournament/List.cshtml", Tournaments);
         }
-
-
+        public ActionResult openTournamentInfo(int id)
+        {
+            return RedirectToAction("openTournamentInfo", "Tournaments", new { id = id });
+        }
     }
 }
