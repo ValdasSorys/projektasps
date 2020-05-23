@@ -80,16 +80,23 @@ namespace WebApplication6
                );
 
             routes.MapRoute(
+               name: "TeamCreate",
+               url: "team/create",
+               defaults: new { controller = "CreateTeam", action = "openCreateTeamView" }
+               );
+
+            routes.MapRoute(
+               name: "TeamJoin",
+               url: "team/join/{id}",
+               defaults: new { controller = "PlayerRequest", action = "createPlayerJoinRequest" }
+               );
+
+            routes.MapRoute(
                name: "TeamDetails",
                url: "team/{id}",
                defaults: new { controller = "TeamInfo", action = "openTeamInfo" }
                );
 
-            routes.MapRoute(
-               name: "TeamCreate",
-               url: "team/create",
-               defaults: new { controller = "CreateTeam", action = "openTeamList" }
-               );
 
             routes.MapRoute(
                 name: "Default",
