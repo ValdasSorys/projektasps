@@ -55,6 +55,12 @@
 
     </dl>
 </div>
+@if (ViewBag.isCaptain == true)
+{
+    <p>
+        @Html.RouteLink("Manage incoming requests", "TeamRequests", new { id = Model.Id })
+    </p>
+}
 <p>
     @Html.RouteLink("Send join request", "TeamJoin", new { id = Model.Id })
 </p>

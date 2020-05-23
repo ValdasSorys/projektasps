@@ -116,10 +116,31 @@ namespace WebApplication6
                );
 
             routes.MapRoute(
+               name: "TeamAccept",
+               url: "team/requests/accept/{id}",
+               defaults: new { controller = "TeamRequest", action = "acceptRequest" }
+               );
+
+            routes.MapRoute(
+               name: "TeamReject",
+               url: "team/requests/reject/{id}",
+               defaults: new { controller = "TeamRequest", action = "deleteRequest" }
+               );
+
+            routes.MapRoute(
+               name: "TeamRequests",
+               url: "team/requests/{id}",
+               defaults: new { controller = "TeamRequest", action = "openTeamRequest" }
+               );
+
+            routes.MapRoute(
                name: "TeamDetails",
                url: "team/{id}",
                defaults: new { controller = "TeamInfo", action = "openTeamInfo" }
                );
+
+
+
 
 
             routes.MapRoute(

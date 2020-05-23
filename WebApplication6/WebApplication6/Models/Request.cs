@@ -21,7 +21,7 @@ namespace WebApplication6.Models
 
             var Connection = new MySqlConnection(ConnectionString);
             Connection.Open();
-            string SQLStatement = "SELECT * FROM request where player_id = " + id;
+            string SQLStatement = string.Format("SELECT * FROM request where player_id = {0}", id);
             var Command = new MySqlCommand(SQLStatement, Connection);
             MySqlDataReader Reader = Command.ExecuteReader();
 
@@ -30,8 +30,8 @@ namespace WebApplication6.Models
                 while (Reader.Read())
                 {
                     request.CreationDate = Reader.GetDateTime(0);
-                    request.Player_id = Reader.GetInt32(1);
-                    request.Team_id = Reader.GetInt32(2);
+                    request.Team_id = Reader.GetInt32(1);
+                    request.Player_id = Reader.GetInt32(2);
                 }
             }
 
@@ -41,7 +41,34 @@ namespace WebApplication6.Models
             return request;
         }
 
+        public static List<Request> getTeamsRequests(int id)
+        {
+            var requests = new List<Request>();
 
+            var Connection = new MySqlConnection(ConnectionString);
+            Connection.Open();
+            string SQLStatement = string.Format("SELECT * FROM request WHERE request.team_id = '{0}'", id);
+            var Command = new MySqlCommand(SQLStatement, Connection);
+            MySqlDataReader Reader = Command.ExecuteReader();
+
+            if (Reader.HasRows)
+            {
+                while (Reader.Read())
+                {
+                    requests.Add(new Request()
+                    {
+                        CreationDate = Reader.GetDateTime(0),
+                        Team_id = Reader.GetInt32(1),
+                        Player_id = Reader.GetInt32(2)
+                    });
+                }
+            }
+
+            Reader.Close();
+            Connection.Close();
+
+            return requests;
+        }
         public static void createRequest(Team team)
         {
             string userID = HttpContext.Current.Session["id"].ToString();
@@ -55,6 +82,15 @@ namespace WebApplication6.Models
             Connection.Close();
         }
 
+        public static void deleteRequest(int id)
+        {
+            var Connection = new MySqlConnection(ConnectionString);
+            Connection.Open();
+            string SQLStatement = string.Format("DELETE FROM request WHERE player_id= '{0}'", id);
+            var Command = new MySqlCommand(SQLStatement, Connection);
+            Command.ExecuteNonQuery();
+            Connection.Close();
+        }
 
     }
 }
