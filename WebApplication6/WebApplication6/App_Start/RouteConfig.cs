@@ -156,6 +156,12 @@ namespace WebApplication6
                defaults: new { controller = "MatchPlay", action = "checkMatchConcluded", id = UrlParameter.Optional }
                );
 
+            routes.MapRoute(
+               name: "openMatchHistory",
+               url: "matchhistory",
+               defaults: new { controller = "MatchHistory", action = "openMatchHistory" }
+               );
+
 
 
             routes.MapRoute(
