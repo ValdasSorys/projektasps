@@ -145,6 +145,69 @@ namespace WebApplication6.Models
             return result;
         }
 
+        public static int getRole(Team team)
+        {
+            string userID = HttpContext.Current.Session["id"].ToString();
+            int result = 0;
+            var Connection = new MySqlConnection(ConnectionString);
+            Connection.Open();
+            string SQLStatement = string.Format("SELECT * FROM team_member WHERE team_member.player_id = {0} AND team_member.team_id = {1}", userID, team.Id);
+            var command = new MySqlCommand(SQLStatement, Connection);
+            command.ExecuteNonQuery();
+            MySqlDataReader Reader = command.ExecuteReader();
+            var teamMembers = new List<String>();
+            if (Reader.HasRows)
+            {
+                while (Reader.Read())
+                {
+                    int teamRole = Reader.GetInt32(0);
+                    if (teamRole == 1)
+                        result = 2;
+                    else if (teamRole == 0)
+                        result = 1;
+                }
+            }
+
+            Reader.Close();
+            Connection.Close();
+
+            return result;
+        }
+
+        public static void addTeamMember(Request request)
+        {
+            var Connection = new MySqlConnection(ConnectionString);
+            Connection.Open();
+            string SQLStatement = string.Format("INSERT INTO team_member (isCaptain, player_id, team_id) VALUES (0,{0},{1})", request.Player_id, request.Team_id);
+            var command = new MySqlCommand(SQLStatement, Connection);
+            command.ExecuteNonQuery();
+            Connection.Close();
+        }
+
+
+        public int getTeamMemberCount(Team team)
+        {
+            int result = 0;
+            var Connection = new MySqlConnection(ConnectionString);
+            Connection.Open();
+            string SQLStatement = string.Format("SELECT * FROM team_member WHERE team_member.team_id = {0}",team.Id);
+            var command = new MySqlCommand(SQLStatement, Connection);
+            command.ExecuteNonQuery();
+            MySqlDataReader Reader = command.ExecuteReader();
+            if (Reader.HasRows)
+            {
+                while (Reader.Read())
+                {
+                    result++;
+                }
+            }
+
+            Reader.Close();
+            Connection.Close();
+
+            return result;
+        }
+
 
     }
 

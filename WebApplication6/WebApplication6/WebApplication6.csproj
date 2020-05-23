@@ -156,6 +156,7 @@
     <Compile Include="Controllers\Tournament\PlayerRequestController.cs" />
     <Compile Include="Controllers\Tournament\TeamInfoController.cs" />
     <Compile Include="Controllers\Tournament\TeamListController.cs" />
+    <Compile Include="Controllers\Tournament\TeamRequestController.cs" />
     <Compile Include="Controllers\Tournament\TournamentListController.cs" />
     <Compile Include="Controllers\Tournament\TournamentsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -223,11 +224,14 @@
     <Content Include="Views\Game\MatchHistoryView.cshtml" />
     <Content Include="Views\Game\MatchInfoView.cshtml" />
     <Content Include="Views\Game\MatchQueueView.cshtml" />
+    <Content Include="Views\Tournament\TeamRequest.cshtml" />
+    <Content Include="Views\Tournament\Bruh.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\CreateTeam\" />
     <Folder Include="Views\PlayerRequest\" />
+    <Folder Include="Views\TeamRequest\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

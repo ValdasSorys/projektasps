@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WebApplication6.Models.Request>
+
+@{
+    ViewBag.Title = "TeamRequest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <dd>
+        @if (ViewBag.isError == true)
+        {<h2>ERROR: Team is already full.</h2>}
+    </dd>
+
+<h2>Incoming requests</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Team_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Player_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Team_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Player_id)
+        </td>
+        <td>
+            @Html.RouteLink("Accept", "TeamAccept", new { id=item.Player_id})
+            @Html.RouteLink("Reject", "TeamReject", new { id=item.Player_id})
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>
+    @Html.RouteLink("Back to team", "TeamDetails", new { id = ViewBag.TeamID })
+</p>
