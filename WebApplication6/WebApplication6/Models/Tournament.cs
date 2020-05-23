@@ -84,7 +84,8 @@ namespace WebApplication6.Models
             string SQLStatement = @"SELECT tournament.id, tournament.playerCount, tournament.startDate, tournament.name, tournament.maxPlayerCount FROM tournament 
 INNER JOIN team_tournament_participation ON tournament.id = team_tournament_participation.tournament_id 
 INNER JOIN team_member ON team_member.team_id = team_tournament_participation.team_id 
-WHERE startDate > NOW() AND startDate < addtime(NOW(), '1 10:0:0')";
+WHERE startDate > NOW() AND startDate < addtime(NOW(), '1 10:0:0')
+GROUP BY tournament.id";
             var Command = new MySqlCommand(SQLStatement, Connection);
             MySqlDataReader Reader = Command.ExecuteReader();
 

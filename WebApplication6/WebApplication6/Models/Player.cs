@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Globalization;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace WebApplication6.Models
 {
@@ -51,14 +52,49 @@ namespace WebApplication6.Models
 
 		}
 
+
 		public void getTopPlayers()
 		{
 
 		}
 
-		public void getPlayersOfTeam()
+		public static List<Player> getPlayersOfTeam(int tournamentId)
 		{
+			var Connection = new MySqlConnection(ConnectionString);
+			Connection.Open();
+			string SQLStatement = "SELECT team_id FROM team_member where player_id = " + System.Web.HttpContext.Current.Session["id"].ToString();
+			var Command = new MySqlCommand(SQLStatement, Connection);
+			MySqlDataReader Reader = Command.ExecuteReader();
+			int team;
+			Reader.Read();
+			team = Reader.GetInt32(0);
+			Reader.Close();
 
+            SQLStatement = "SELECT player.id, player.matchCount, player.winCount, player.rating, player.inQueue, player.region, player.inQueuesince " +
+				"FROM player INNER JOIN team_member ON team_member.player_id = player.id INNER JOIN team ON team.id = team_member.team_id WHERE " +
+				"team.id = " + System.Web.HttpContext.Current.Session["id"].ToString();
+            Command = new MySqlCommand(SQLStatement, Connection);
+            Reader = Command.ExecuteReader();
+
+            List<Player> players = new List<Player>();
+
+            if (Reader.HasRows)
+            {
+                while (Reader.Read())
+                {
+                    int id = Reader.GetInt32(0);
+                    int matchCount = Reader.GetInt32(1);
+                    int winCount = Reader.GetInt32(2);
+                    double rating = Reader.GetDouble(3);
+                    string region = Reader.GetString(5);
+                    DateTime inQueueSince = Reader.GetDateTime(6);
+                    players.Add(new Player(id, matchCount, winCount, rating, true, region, inQueueSince));
+                }
+            }
+
+            Reader.Close();
+            Connection.Close();
+			return players;
 		}
 
 		public bool checkIsSearching(int id)

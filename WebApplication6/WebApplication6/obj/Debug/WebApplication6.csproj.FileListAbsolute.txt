@@ -529,6 +529,6 @@ C:\Users\Valdas\Documents\GitHub\projektasps\WebApplication6\WebApplication6\obj
 C:\Users\Valdas\Documents\GitHub\projektasps\WebApplication6\WebApplication6\obj\Debug\WebApplication6.csproj.CopyComplete
 C:\Users\Valdas\Documents\GitHub\projektasps\WebApplication6\WebApplication6\obj\Debug\WebApplication6.dll
 C:\Users\Valdas\Documents\GitHub\projektasps\WebApplication6\WebApplication6\obj\Debug\WebApplication6.pdb
-C:\wamp64\www\projektasps\WebApplication6\WebApplication6\bin\FluentScheduler.dll
-C:\wamp64\www\projektasps\WebApplication6\WebApplication6\bin\FluentScheduler.pdb
-C:\wamp64\www\projektasps\WebApplication6\WebApplication6\bin\FluentScheduler.xml
+C:\Users\Matt\Desktop\github\projektasps\WebApplication6\WebApplication6\bin\FluentScheduler.dll
+C:\Users\Matt\Desktop\github\projektasps\WebApplication6\WebApplication6\bin\FluentScheduler.pdb
+C:\Users\Matt\Desktop\github\projektasps\WebApplication6\WebApplication6\bin\FluentScheduler.xml

@@ -82,7 +82,7 @@ namespace WebApplication6
             routes.MapRoute(
                name: "TournamentPlay",
                url: "tournamentplay",
-               defaults: new { controller = "Tournaments", action = "openTournamentPage" }
+               defaults: new { controller = "Tournaments", action = "openTournamentLobby" }
                );
 
             routes.MapRoute(
