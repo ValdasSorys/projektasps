@@ -54,6 +54,14 @@
             if (!Model.isPlaying)
             {
             @Html.RouteLink("Register for tournament", "TournamentParticipate", new { Model.Id }, new { onclick = "return confirm('Do you really want to participate in this tournament?')" });
+            }
+        }
+        }
+    @{ if (ViewBag.Error != null)
+        {
+            if (!ViewBag.Error)
+            {
+                <h5><p style="color:red">Klaida. Iki turnyro liko mažiau nei 15 min</p></h5>     
                 }
             }
         }
