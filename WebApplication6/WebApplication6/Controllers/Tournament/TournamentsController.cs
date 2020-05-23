@@ -18,12 +18,30 @@ namespace WebApplication6.Controllers
 
             return View("~/Views/Tournament/Info.cshtml", Tournaments);
         }
+        public bool checkTimeToStart(DateTime date)
+        {
+            TimeSpan interval = new TimeSpan(30, 15, 0);
+            if(date > DateTime.Now+interval)
+            {
+                return true;
+            }
+            return false;
+        }
         public ActionResult registerTournament(int id)
         {
-            Tournament.update(id, System.Web.HttpContext.Current.Session["id"].ToString());
+            var tournament = Tournament.select(id);
+            bool error = true;
 
+            if (checkTimeToStart(tournament.StartDate))
+            {
+                Tournament.update(id, System.Web.HttpContext.Current.Session["id"].ToString());                
+            }
+            else
+            {
+                error = false;
+            }
+            ViewBag.Error = error;
             var Tournaments = Tournament.select(id);
-
             return View("~/Views/Tournament/Info.cshtml", Tournaments);
         }
         public ActionResult openActiveTournaments()
